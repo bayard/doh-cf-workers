@@ -4,7 +4,7 @@ const doh = 'https://security.cloudflare-dns.com/dns-query'
 const dohjson = 'https://security.cloudflare-dns.com/dns-query'
 const contype = 'application/dns-message'
 const jstontype = 'application/dns-json'
-const r404 = new Response(null, {status: 404});
+const r503 = new Response(null, {status: 503});
 
 // developers.cloudflare.com/workers/runtime-apis/fetch-event/#syntax-module-worker
 export default {
@@ -16,7 +16,7 @@ export default {
 async function handleRequest(request) {
     // when res is a Promise<Response>, it reduces billed wall-time
     // blog.cloudflare.com/workers-optimization-reduces-your-bill
-    let res = r404;
+    let res = r503;
     const { method, headers, url } = request
     const searchParams = new URL(url).searchParams
     if (method == 'GET' && searchParams.has('dns')) {
